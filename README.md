@@ -1,1 +1,1 @@
-https://github.com/SherryLJY/Ridiculous-Input_Brightness-Settings.git
+https://codepen.io/SherryLJY/pen/WNXmpjJ
