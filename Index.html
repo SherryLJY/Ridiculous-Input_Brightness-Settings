@@ -1,0 +1,201 @@
+<h2>Brightness Settings</h2>
+
+<!--Icon Button-->
+<button onclick="myFunction()">
+    <i class="material-icons">light_mode</i>
+</button>
+
+<!--Toggle Slider-->
+<input id="range" class="toggle" type="range" value="0" min="0" max="100"></input>
+
+<!--Brightness-->
+<div class="rectangle"></div>
+
+<style>
+    /* Imported Stylesheet Links */
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+    @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+    /* Background */
+    body {
+        background-color: #e0e5ec;
+        color: #595959;
+        font-family: "Poppins", sans-serif;
+        transition: 15s;
+    }
+
+    /* Dark Mode Background */
+    .dark-mode {
+        background-color: #2d3035;
+        color: #22f2aa;
+        transition: 25s;
+    }
+
+    /* Brightness Settings */
+    h2 {
+        position: absolute;
+        left: 180px;
+        top: 125px;
+        font-size: 24px;
+        opacity: 100;
+    }
+
+    /* Toggle Slider */
+    #range {
+        position: absolute;
+        left: 250px;
+        top: 205px;
+    }
+
+    /* Toggle Slider OFF */
+    .toggle {
+        -webkit-appearance: none;
+        width: 870px;
+        height: 50px;
+        background: #cdcfd1;
+        outline: none;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: inset -3px -3px 5px #f5f5f5,
+            inset -6px -6px 12px rgba(255, 255, 255, 0.5),
+            inset 6px 6px 4px rgba(255, 255, 255, 0.1),
+            inset 6px 6px 8px rgba(0, 0, 0, 0.15);
+        transition: 15s;
+    }
+
+    /* Toggle Slider ON */
+    .toggle::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        box-shadow: -807px 0 0 780px #00e699;
+    }
+
+    /* Dark Mode Toggle Slider */
+    .dark-toggle {
+        -webkit-appearance: none;
+        width: 870px;
+        height: 50px;
+        background: #58595d;
+        outline: none;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow:
+            -3px -3px 5px #3b3d40,
+            inset -6px -6px 5px #26292e,
+            inset 6px 6px 4px rgba(255, 255, 255, 0.05),
+            inset 6px 6px 8px rgba(0, 0, 0, 0.15);
+        transition: 15s;
+    }
+
+    /* Icon Button */
+    button {
+        background-color: transparent;
+        border: none;
+        color: #595959;
+        opacity: 100;
+        box-shadow:
+            -6px -6px 12px rgba(255, 255, 255, 0.5),
+            inset 6px 6px 4px rgba(255, 255, 255, 0.1),
+            6px 6px 8px rgba(0, 0, 0, 0.15);
+        filter:
+            drop-shadow(3px 3px 8px #a3b1c6) drop-shadow(-3px -3px 2px #ffffff);
+        border-radius: 40px;
+        height: 205px;
+        width: 1100px;
+        position: absolute;
+        left: 100px;
+        top: 100px;
+        cursor: pointer;
+        transition: 15s;
+    }
+
+    .material-icons {
+        position: absolute;
+        left: 75px;
+        top: 100px;
+        font-size: 60px;
+        font-weight: 100px;
+    }
+
+    /* Activated Icon Button */
+    .active {
+        color: #22f2aa;
+        filter:
+            drop-shadow(-3px -3px 8px #24262b) drop-shadow(5px 5px 8px #666873);
+        box-shadow:
+            inset -5px -5px 10px rgba(0, 0, 0, 0.1),
+            inset -5px -5px 15px rgba(0, 0, 0, 0.1),
+            inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+        transition: 15s;
+    }
+
+    /* Brightness */
+    .rectangle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        transition: 15s;
+        opacity: 0;
+    }
+</style>
+
+<script>
+    /* When the icon button is clicked, it wil toggle to a dark-mode by referring to the called class lists. An alert will also pop up to tell the user to wait in patience while the screen loads. */
+    function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+        var element = document.getElementById("range");
+        element.classList.toggle("dark-toggle");
+        setTimeout(function () {
+            alert("This will only take a moment. Please wait...");
+        }, 1000);
+    }
+
+    /* When the icon button is clicked, it will change to a different style state, referring to 'active' in the class list */
+    function toggleItem(buttons) {
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function (e) {
+                let current = this;
+                for (let i = 0; i < buttons.length; i++) {
+                    if (current != buttons[i]) {
+                        buttons[i].classList.remove("active");
+                    } else if (current.classList.contains("active") === true) {
+                        current.classList.remove("active");
+                    } else {
+                        current.classList.add("active");
+                    }
+                }
+                e.preventDefault();
+            });
+        }
+    }
+    toggleItem(document.querySelectorAll("button"));
+
+    /* When the toggle slider is dragged, the opacity of the following elements changes to give the impression that dark mode has been activated. */
+    var range = document.getElementById("range");
+    var bg = document.getElementsByClassName("rectangle")[0];
+    var btn = document.getElementsByTagName("button")[0];
+    var h2 = document.getElementsByTagName("h2")[0];
+    var max = 100;
+
+    range.addEventListener("change", function () {
+        h2.style.opacity = (this.max - this.value) / this.max;
+        btn.style.opacity = (this.max - this.value) / this.max;
+        bg.style.opacity = this.value / this.max;
+        /* An alert will pop up everytime the toggle slider is clicked */
+        if (range.value >= 0) {
+            setTimeout(function () {
+                alert("This will only take a moment. Please wait...");
+            }, 1500);
+        }
+    });
+
+</script>
